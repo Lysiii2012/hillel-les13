@@ -26,36 +26,34 @@
     </div>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputPromptBtn = document.querySelector('.prompt-js');
-            const redirectBtn = document.querySelector('.prompt-href');
-    
-            inputPromptBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                let userSite = prompt('Будь ласка, введіть сайт (наприклад, example.com):');
-    
-                if (userSite !== null && userSite.trim() !== '') {
-                    localStorage.setItem('userSite', userSite); 
-                } else {
-                    alert('Необхідно ввести сайт!');
-                }
-            });
-    
-            redirectBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                let savedSite = localStorage.getItem('userSite');
-    
-                if (savedSite) { 
-                    let fullUrl = savedSite.trim();
-                    if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
-                        fullUrl = 'http://' + fullUrl;
-                    }
-                    window.location.href = fullUrl;
-                } else {
-                    alert('Спочатку введіть сайт!');
-                }
-            });
+     document.addEventListener('DOMContentLoaded', function() {
+        const inputPromptBtn = document.querySelector('.prompt-js');
+        const redirectBtn = document.querySelector('.prompt-href');
+        let userSite = '';
+
+        inputPromptBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            userSite = prompt('Будь ласка, введіть сайт (наприклад, example.com):');
+
+            if (userSite == null && userSite.trim() == '') {
+                alert('Необхідно ввести сайт!');
+                 userSite = '';  
+            } 
         });
+
+        redirectBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (userSite) { 
+                let fullUrl = userSite.trim();
+                if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+                    fullUrl = 'http://' + fullUrl;
+                }
+                window.location.href = fullUrl;
+            } else {
+                alert('Спочатку введіть сайт!');
+            }
+        });
+    });
     </script>
     
 </body>
