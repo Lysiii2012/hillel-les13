@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дз1</title>
+</head>
+<style>
+    .btn-group a{
+        padding: 20px;
+        display: inline-block;
+        margin-right: 30px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 20px;
+        background: #c20909;
+    }
+    .btn-group .prompt-href{
+        background: #0457a5;
+    }
+</style>
+<body>
+    <div class="btn-group">
+        <a class="prompt-js" href="#">Ввести посилання</a>
+        <a class="prompt-href" target="_blank" href="#">Перейти за посиланням</a>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputPromptBtn = document.querySelector('.prompt-js');
+            const redirectBtn = document.querySelector('.prompt-href');
+    
+            inputPromptBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                let userSite = prompt('Будь ласка, введіть сайт (наприклад, example.com):');
+    
+                if (userSite !== null && userSite.trim() !== '') {
+                    localStorage.setItem('userSite', userSite); 
+                } else {
+                    alert('Необхідно ввести сайт!');
+                }
+            });
+    
+            redirectBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                let savedSite = localStorage.getItem('userSite');
+    
+                if (savedSite) { 
+                    let fullUrl = savedSite.trim();
+                    if (!fullUrl.startsWith('http://') && !fullUrl.startsWith('https://')) {
+                        fullUrl = 'http://' + fullUrl;
+                    }
+                    window.location.href = fullUrl;
+                } else {
+                    alert('Спочатку введіть сайт!');
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
